@@ -1,0 +1,15 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+alias(libs.plugins.android.application) apply false
+    id "com.github.ben-manes.versions" version "0.46.0"
+    //./gradlew dependencyUpdates
+    id "org.owasp.dependencycheck" version "8.3.1"
+    //./gradlew dependencyCheckAnalyze
+}
+
+tasks.register("qualityChecks") {
+    group = "verification" // Definisce un gruppo per il task per organizzare meglio i task di Gradle
+    description = "Esegue controlli di qualità del progetto, inclusi lint e dependencyUpdates."
+
+    dependsOn  "dependencyUpdates", "dependencyCheckAnalyze" , ":app:lint"
+}
